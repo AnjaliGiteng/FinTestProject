@@ -1,0 +1,40 @@
+# .gitHub/workflows/manual.yml
+
+name: Manual Test Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Select test type to run'
+        required: true
+        default: 'full'
+        options:
+          - full
+          - specific
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium unittest
+
+      - name: Run tests
+        run: |
+          if [ "${{ github.event.inputs.test_type }}" == "full" ]; then
+            python -m unittest discover -s tests
+          else
+            python -m unittest tests/test_google_finance.py -k "test_compare_stock_symbols"  
+          fi
