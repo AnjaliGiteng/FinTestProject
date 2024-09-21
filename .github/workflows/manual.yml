@@ -36,5 +36,5 @@ jobs:
           if [ "${{ github.event.inputs.test_type }}" == "full" ]; then
             python -m unittest discover -s tests
           else
-            python -m unittest tests/test_google_finance.py -k "test_compare_stock_symbols"  
+            python -m unittest tests/test_stocks.py -k "test_stock_symbols"  
           fi
