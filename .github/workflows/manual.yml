@@ -35,8 +35,10 @@ jobs:
       - name: Run tests
         run: |
          if [ "${{ github.event.inputs.test_case }}" == "case_5_6" ]; then
+            echo "Running case 5 and 6"
             python -m unittest tests/test_stocks.py -k "test_case_5"
             python -m unittest tests/test_stocks.py -k "test_case_6"
           else
+            echo "Running all tests"
             python -m unittest discover tests/
           fi
