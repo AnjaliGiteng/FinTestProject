@@ -5,8 +5,8 @@ name: Manual Test Workflow
 on:
   workflow_dispatch:
     inputs:
-      test_type:
-        description: 'Select test type to run'
+      test_case:
+        description: 'Select the test case to run'
         required: true
         default: 'full'
         type: choice
@@ -34,7 +34,8 @@ jobs:
 
       - name: Run tests
         run: |
-         if [ "${{ github.event.inputs.test_case }}" == "case_5_6" ]; then
+          echo "Input test_case: '${{ github.event.inputs.test_case }}'"
+          if [[ "${{ github.event.inputs.test_case }}" == "case_5_6" ]]; then
             echo "Running case 5 and 6"
             python -m unittest tests/test_stocks.py -k "test_case_5" || true
             python -m unittest tests/test_stocks.py -k "test_case_6" || true
