@@ -9,6 +9,7 @@ on:
         description: 'Select test type to run'
         required: true
         default: 'full'
+        type: choice
         options:
           - full
           - case_5_6
