@@ -11,7 +11,7 @@ on:
         default: 'full'
         options:
           - full
-          - specific
+          - case_5_6
 
 jobs:
   run-tests:
@@ -33,8 +33,9 @@ jobs:
 
       - name: Run tests
         run: |
-          if [ "${{ github.event.inputs.test_type }}" == "full" ]; then
-            python -m unittest discover -s tests
+         if [ "${{ github.event.inputs.test_case }}" == "case_5_6" ]; then
+            python -m unittest tests/test_stocks.py -k "test_case_5"
+            python -m unittest tests/test_stocks.py -k "test_case_6"
           else
-            python -m unittest tests/test_stocks.py -k "test_stock_symbols"  
+            python -m unittest discover tests/
           fi
